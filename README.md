@@ -106,14 +106,14 @@ Example project:
 Returns a paginated list of projects visible to the authenticated user.
 
 ```http
-GET /projects
+GET /projects?[status=<status,...>]&[owner_id=<owner_id>]&[search=<search>]&[tag=<tag>]&[sort=<sort>]&[order=<order>]&[page=<page>]&[per_page=<per_page>]
 ```
 
 ## Query parameters
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---:|---|---|
-| `status` | string | No | — | Filters by `active`, `archived`, or `draft`. |
+| `status` | string | No | — | Filters by status. Accepts a comma-separated list of values; multiple values use **OR** logic: `active`, `archived`, `draft`. Example: `status=active,draft`. |
 | `owner_id` | string | No | — | Filters by project owner. |
 | `search` | string | No | — | Case-insensitive search in project names and descriptions. |
 | `tag` | string | No | — | Filters projects containing the specified tag. |
@@ -126,7 +126,7 @@ GET /projects
 
 
 ```http
-GET /v1/projects?status=active&sort=updated_at&order=desc&page=1&per_page=20 HTTP/1.1
+GET /v1/projects?status=active,draft&sort=updated_at&order=desc&page=1&per_page=20 HTTP/1.1
 Host: api.example.com
 Authorization: Bearer <access-token>
 Accept: application/json
