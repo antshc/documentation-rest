@@ -360,7 +360,9 @@ X-Request-ID: req_01J2Y6M3W8R4D7N1C9Q5V0K2P6
 
 # Objects
 
-## Project object
+## Projects
+
+### Project object
 
 <details>
 <summary>Fields</summary>
@@ -394,6 +396,83 @@ X-Request-ID: req_01J2Y6M3W8R4D7N1C9Q5V0K2P6
   ],
   "created_at": "2026-07-10T14:20:00Z",
   "updated_at": "2026-07-11T08:15:00Z"
+}
+```
+
+</details>
+
+## Common
+
+### Pagination object
+
+Returned by paginated list endpoints inside the `pagination` field.
+
+<details>
+<summary>Fields</summary>
+
+| Field | Type | Nullable | Description |
+|---|---|---:|---|
+| `page` | integer | No | Current page number. |
+| `per_page` | integer | No | Maximum number of items requested per page. |
+| `total_items` | integer | No | Total number of matching items. |
+| `total_pages` | integer | No | Total number of available pages. |
+| `has_next_page` | boolean | No | Indicates whether another page is available. |
+| `has_previous_page` | boolean | No | Indicates whether a previous page is available. |
+
+</details>
+
+<details>
+<summary>Example</summary>
+
+```json
+{
+  "page": 1,
+  "per_page": 20,
+  "total_items": 2,
+  "total_pages": 1,
+  "has_next_page": false,
+  "has_previous_page": false
+}
+```
+
+</details>
+
+### Error object
+
+Returned by all error responses.
+
+<details>
+<summary>Fields</summary>
+
+| Field | Type | Nullable | Description |
+|---|---|---:|---|
+| `error.code` | string | No | Stable, machine-readable error code. |
+| `error.message` | string | No | Human-readable summary. |
+| `error.details` | array | No | Field-level or contextual error details. |
+| `error.details[].field` | string | Yes | Related request field, when applicable. |
+| `error.details[].message` | string | No | Explanation of the specific problem. |
+| `error.details[].value` | any | Yes | Rejected value, when safe to return. |
+| `error.request_id` | string | No | Identifier used for troubleshooting and support. |
+
+</details>
+
+<details>
+<summary>Example</summary>
+
+```json
+{
+  "error": {
+    "code": "machine_readable_code",
+    "message": "Human-readable error description.",
+    "details": [
+      {
+        "field": "field_name",
+        "message": "Field-specific explanation.",
+        "value": "invalid value"
+      }
+    ],
+    "request_id": "req_01J2YB3M7V1C9N4Q6D8R0K2P5S"
+  }
 }
 ```
 
